@@ -4,6 +4,7 @@ import Body from "./components/Body";
 import Login from "./components/Login";
 import Signup from "./components/Signup";
 import Profile from "./components/Profile";
+import Logout from "./components/Logout";
 import appStore from "./utils/appStore";
 import Feed from "./components/Feed";
 function App() {
@@ -17,6 +18,7 @@ function App() {
               <Route path="/login" element={<Login />} />
               <Route path="/signup" element={<Signup />} />
               <Route path="/profile" element={<Profile />} />
+              <Route path="/logout" element={<Logout />} />
             </Route>
           </Routes>
         </BrowserRouter>
