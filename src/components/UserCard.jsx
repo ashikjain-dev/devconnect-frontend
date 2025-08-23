@@ -2,6 +2,7 @@ import React from "react";
 
 const UserCard = ({ user }) => {
   const { firstName, lastName, bio, photoUrl } = user;
+
   return (
     <>
       <div className="card bg-base-300 w-96 shadow-xl">

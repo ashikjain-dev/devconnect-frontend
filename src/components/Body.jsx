@@ -30,11 +30,11 @@ const Body = () => {
     validateUser();
   }, []);
   return (
-    <>
+    <div className="overflow-y-auto">
       <NavBar />
       <Outlet />
       {/* <Footer /> */}
-    </>
+    </div>
   );
 };
 
