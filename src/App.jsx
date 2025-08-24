@@ -6,7 +6,9 @@ import Signup from "./components/Signup";
 import Profile from "./components/Profile";
 import Logout from "./components/Logout";
 import appStore from "./utils/appStore";
+import Connections from "./components/Connections";
 import Feed from "./components/Feed";
+import Request from "./components/Request";
 function App() {
   return (
     <>
@@ -19,6 +21,8 @@ function App() {
               <Route path="/signup" element={<Signup />} />
               <Route path="/profile" element={<Profile />} />
               <Route path="/logout" element={<Logout />} />
+              <Route path="/connections" element={<Connections />} />
+              <Route path="/requests" element={<Request />} />
             </Route>
           </Routes>
         </BrowserRouter>
