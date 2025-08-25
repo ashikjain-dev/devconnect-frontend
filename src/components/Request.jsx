@@ -16,6 +16,7 @@ const Request = () => {
           withCredentials: true,
         }
       );
+
       dispatch(removeRequest(_id));
     } catch (error) {
       console.error(error.message);
@@ -28,8 +29,8 @@ const Request = () => {
       const res = await axios.get(BASE_URL + "/user/connection/interested", {
         withCredentials: true,
       });
-      console.log(res.data.data);
-      dispatch(addRequest(res.data.data));
+
+      dispatch(addRequest(res.data.interestedConnection));
     } catch (error) {
       console.log(error.message);
     }
@@ -37,6 +38,7 @@ const Request = () => {
   useEffect(() => {
     getRequests();
   }, []);
+
   if (!userRequest) return;
   if (userRequest.length === 0) {
     return (
@@ -47,11 +49,11 @@ const Request = () => {
   }
   return (
     <div className="flex flex-col justify-center items-center p-5">
-      <h1 className="text-3xl font-bold text-white">Connections List :</h1>
+      <h1 className="text-3xl font-bold text-white mb-4">Request Lists:</h1>
       {userRequest.map((request) => {
         const { _id, firstName, lastName, photoUrl, bio, age, gender } =
-          request.user;
-        const requestId = request.id;
+          request.fromUserId;
+        const requestId = request._id;
         return (
           <div key={requestId} className="card bg-base-300">
             <div className="flex flex-row card w-96 bg-base-300 shadow-sm my-8 p-5">

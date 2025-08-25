@@ -9,7 +9,10 @@ import { BASE_URL } from "../utils/constant";
 const Login = () => {
   const [emailId, setEmailId] = useState("kl.rahul@gmail.com");
   const [password, setPassword] = useState("RHHHash23^");
+  const [firstName, setFirstName] = useState("");
+  const [lastName, setLastName] = useState("");
   const [error, setError] = useState(null);
+  const [existingUser, IsExistingUser] = useState(false);
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const handleSignIn = async () => {
@@ -26,12 +29,60 @@ const Login = () => {
       console.error(error.response);
     }
   };
+  const handleSignup = async () => {
+    try {
+      const res = await axios.post(
+        BASE_URL + "/signup",
+        { firstName, lastName, emailId, password },
+        { withCredentials: true }
+      );
+      dispatch(addUser(res.data.user));
+      return navigate("/profile");
+    } catch (error) {
+      console.error(error.message);
+    }
+  };
   return (
     <div className="flex justify-center my-5">
       <div className=" card bg-accent-content text-primary-content w-96 shadow-md p-2 ">
         <div className="card-body">
-          <h2 className="card-title justify-center">Login</h2>
+          <h2 className="card-title justify-center">
+            {existingUser ? "Login" : "Sign Up"}
+          </h2>
           <div>
+            {!existingUser && (
+              <>
+                <label className="form-control w-full max-w-xs">
+                  <div className="label py-2">
+                    <span className="label-text">First Name : </span>
+                  </div>
+                  <input
+                    type="text"
+                    value={firstName}
+                    placeholder="Type your first name here"
+                    required:true
+                    className="input input-bordered w-full max-w-xs input-sm focus:outline-none focus:ring-0 focus:border-transparent"
+                    onChange={(e) => {
+                      setFirstName(e.target.value);
+                    }}
+                  />
+                </label>
+                <label className="form-control w-full max-w-xs">
+                  <div className="label py-2">
+                    <span className="label-text">Last Name : </span>
+                  </div>
+                  <input
+                    type="text"
+                    value={lastName}
+                    placeholder="Type your email here"
+                    className="input input-bordered w-full max-w-xs input-sm focus:outline-none focus:ring-0 focus:border-transparent"
+                    onChange={(e) => {
+                      setLastName(e.target.value);
+                    }}
+                  />
+                </label>
+              </>
+            )}
             <label className="form-control w-full max-w-xs">
               <div className="label py-2">
                 <span className="label-text">Email : </span>
@@ -67,9 +118,22 @@ const Login = () => {
             </div>
           )}
           <div className="card-actions justify-center">
-            <button className="btn input-primary my-2" onClick={handleSignIn}>
-              Login
+            <button
+              className="btn input-primary my-2"
+              onClick={existingUser ? handleSignIn : handleSignup}
+            >
+              {existingUser ? "Login" : "Sign in"}
             </button>
+          </div>
+          <div className="mx-auto">
+            <span
+              className="cursor-pointer hover:text-primary"
+              onClick={() => {
+                IsExistingUser((value) => !value);
+              }}
+            >
+              {existingUser ? "New user? signup" : "Existing user? Login"}
+            </span>
           </div>
         </div>
       </div>

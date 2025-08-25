@@ -24,6 +24,14 @@ const Feed = () => {
   useEffect(() => {
     getFeed();
   }, []);
+  if (!feed) return;
+  if (feed.length === 0) {
+    return (
+      <div>
+        <h1>No new data found!</h1>
+      </div>
+    );
+  }
   return (
     <>
       {feed && (

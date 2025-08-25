@@ -5,7 +5,12 @@ const feedSlice = createSlice({
   initialState: null,
   reducers: {
     addFeed: (state, action) => action.payload,
-    removeFeed: () => null,
+    removeFeed: (state, action) => {
+      const updatedConnection = state.filter(
+        (conn) => conn._id !== action.payload
+      );
+      return updatedConnection;
+    },
   },
 });
 
